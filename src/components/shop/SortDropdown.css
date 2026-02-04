@@ -1,0 +1,84 @@
+/* Sort Dropdown Styles */
+
+.sort-dropdown {
+    position: relative;
+    min-width: 220px;
+}
+
+.sort-trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-2) var(--spacing-4);
+    background-color: var(--color-white);
+    border: 1px solid var(--color-medium-gray);
+    border-radius: var(--radius-md);
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    color: var(--color-dark-brown);
+    transition: all var(--transition-fast);
+}
+
+.sort-trigger:hover,
+.sort-trigger.active {
+    border-color: var(--color-warm-orange);
+}
+
+.sort-label {
+    color: var(--color-dark-gray);
+    margin-right: var(--spacing-2);
+}
+
+.sort-value {
+    font-weight: var(--font-weight-medium);
+    flex-grow: 1;
+    text-align: left;
+}
+
+.sort-icon {
+    transition: transform var(--transition-fast);
+}
+
+.sort-icon.rotate {
+    transform: rotate(180deg);
+}
+
+.sort-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 100%;
+    background-color: var(--color-white);
+    border: 1px solid var(--color-medium-gray);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    margin-top: var(--spacing-2);
+    z-index: var(--z-index-dropdown);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.sort-option {
+    padding: var(--spacing-3) var(--spacing-4);
+    text-align: left;
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    color: var(--color-dark-brown);
+    transition: background-color var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.sort-option:hover {
+    background-color: var(--color-light-gray);
+    color: var(--color-warm-orange);
+}
+
+.sort-option.selected {
+    background-color: rgba(255, 140, 66, 0.1);
+    color: var(--color-warm-orange);
+    font-weight: var(--font-weight-medium);
+}

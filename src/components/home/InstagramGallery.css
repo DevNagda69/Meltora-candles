@@ -1,0 +1,81 @@
+/* Instagram Gallery Styles */
+
+.insta-section {
+    background-color: var(--color-white);
+}
+
+.insta-handle {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    font-family: var(--font-accent);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-warm-orange);
+    margin-bottom: var(--spacing-4);
+    background-color: rgba(255, 140, 66, 0.1);
+    padding: var(--spacing-2) var(--spacing-4);
+    border-radius: var(--radius-full);
+    transition: all var(--transition-base);
+}
+
+.insta-handle:hover {
+    background-color: var(--color-warm-orange);
+    color: var(--color-white);
+}
+
+.insta-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-4);
+}
+
+@media (min-width: 640px) {
+    .insta-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .insta-grid {
+        grid-template-columns: repeat(6, 1fr);
+    }
+}
+
+.insta-item {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    display: block;
+}
+
+.insta-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.insta-item:hover img {
+    transform: scale(1.1);
+}
+
+.insta-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    color: var(--color-white);
+    font-size: 32px;
+}
+
+.insta-item:hover .insta-overlay {
+    opacity: 1;
+}

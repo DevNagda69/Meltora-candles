@@ -1,0 +1,7 @@
+/* Related Products Styles */
+
+.related-products-section {
+    padding-top: var(--spacing-8);
+    border-top: 1px solid var(--color-light-gray);
+    margin-top: var(--spacing-12);
+}

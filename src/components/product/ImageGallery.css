@@ -1,0 +1,80 @@
+/* Image Gallery Styles */
+
+.product-gallery {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+}
+
+.main-image-container {
+    width: 100%;
+    aspect-ratio: 1;
+    /* Square for product details usually looks good */
+    background-color: var(--color-light-gray);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    position: relative;
+    cursor: crosshair;
+}
+
+.main-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.2s ease-out;
+    /* Smooth zoom transition */
+}
+
+.zoom-hint {
+    position: absolute;
+    bottom: var(--spacing-4);
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: var(--spacing-2) var(--spacing-4);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    color: var(--color-dark-gray);
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+.thumbnails-row {
+    display: flex;
+    gap: var(--spacing-3);
+    overflow-x: auto;
+    padding-bottom: var(--spacing-2);
+}
+
+.thumbnail-btn {
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 2px solid transparent;
+    transition: all var(--transition-base);
+    padding: 0;
+}
+
+.thumbnail-btn img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.thumbnail-btn:hover {
+    border-color: var(--color-medium-gray);
+}
+
+.thumbnail-btn.active {
+    border-color: var(--color-warm-orange);
+    opacity: 0.8;
+}
+
+@media (min-width: 1024px) {
+    .main-image-container {
+        aspect-ratio: 4/5;
+        /* Taller on desktop */
+    }
+}
