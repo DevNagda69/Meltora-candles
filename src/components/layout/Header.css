@@ -6,9 +6,14 @@
     left: 0;
     width: 100%;
     z-index: var(--z-index-sticky);
-    background-color: transparent;
-    transition: all var(--transition-base);
     padding: var(--spacing-4) 0;
+    background-color: var(--color-white);
+    box-shadow: var(--shadow-sm);
+}
+
+.header-home {
+    background-color: transparent;
+    box-shadow: none;
 }
 
 .header-scrolled {

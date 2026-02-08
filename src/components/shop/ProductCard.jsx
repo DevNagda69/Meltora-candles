@@ -33,7 +33,16 @@ const ProductCard = ({ product }) => {
     return (
         <div className="product-card group" onClick={() => navigate(`/product/${id}`)}>
             <div className="product-image-container">
-                <img src={image} alt={name} className="product-image" loading="lazy" />
+                <img
+                    src={image}
+                    alt={name}
+                    className="product-image"
+                    loading="lazy"
+                    onError={(e) => {
+                        e.target.src = 'https://via.placeholder.com/300x400?text=Premium+Candle';
+                        e.target.onerror = null;
+                    }}
+                />
 
                 {/* Badges */}
                 <div className="product-badges">

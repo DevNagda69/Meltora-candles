@@ -13,6 +13,17 @@
     padding: 0;
 }
 
+.main-content-wrapper {
+    min-height: calc(100vh - 80px);
+    /* 80px is average header height */
+    padding-top: 80px;
+}
+
+/* On home page, hero section handles its own spacing/overlap */
+.page-home .main-content-wrapper {
+    padding-top: 0;
+}
+
 html {
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
@@ -309,5 +320,44 @@ ol {
 
     h3 {
         font-size: var(--font-size-2xl);
+    }
+}
+
+/* Skeleton Loader */
+.skeleton-section {
+    width: 100%;
+}
+
+.skeleton-title {
+    width: 200px;
+    height: 30px;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s infinite;
+    margin: 0 auto var(--spacing-8);
+    border-radius: var(--radius-sm);
+}
+
+.skeleton-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--spacing-6);
+}
+
+.skeleton-card {
+    height: 400px;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s infinite;
+    border-radius: var(--radius-md);
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
     }
 }

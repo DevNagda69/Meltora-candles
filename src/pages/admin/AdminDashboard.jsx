@@ -22,13 +22,17 @@ const AdminDashboard = () => {
 
     const fetchDashboardData = async () => {
         try {
-            // Fetch products count
-            const productsSnapshot = await getDocs(collection(db, 'products'));
-            const totalProducts = productsSnapshot.size;
-
-            // Fetch orders
-            const ordersSnapshot = await getDocs(collection(db, 'orders'));
-            const totalOrders = ordersSnapshot.size;
+            const [
+                productsSnapshot,
+                ordersSnapshot,
+                gallerySnapshot,
+                recentOrdersSnapshot
+            ] = await Promise.all([
+                getDocs(collection(db, 'products')),
+                getDocs(collection(db, 'orders')),
+                getDocs(collection(db, 'gallery')),
+                getDocs(query(collection(db, 'orders'), orderBy('createdAt', 'desc'), limit(5)))
+            ]);
 
             // Calculate total revenue
             let totalRevenue = 0;
@@ -37,27 +41,16 @@ const AdminDashboard = () => {
                 totalRevenue += order.total || 0;
             });
 
-            // Fetch gallery images count
-            const gallerySnapshot = await getDocs(collection(db, 'gallery'));
-            const galleryImages = gallerySnapshot.size;
-
-            // Fetch recent orders
-            const recentOrdersQuery = query(
-                collection(db, 'orders'),
-                orderBy('createdAt', 'desc'),
-                limit(5)
-            );
-            const recentOrdersSnapshot = await getDocs(recentOrdersQuery);
             const recentOrdersData = recentOrdersSnapshot.docs.map(doc => ({
                 id: doc.id,
                 ...doc.data()
             }));
 
             setStats({
-                totalProducts,
-                totalOrders,
+                totalProducts: productsSnapshot.size,
+                totalOrders: ordersSnapshot.size,
                 totalRevenue,
-                galleryImages
+                galleryImages: gallerySnapshot.size
             });
             setRecentOrders(recentOrdersData);
         } catch (error) {

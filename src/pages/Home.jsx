@@ -10,8 +10,15 @@ const InstagramGallery = lazy(() => import('../components/home/InstagramGallery'
 
 // Loading component
 const ComponentLoader = () => (
-    <div style={{ padding: '60px 0', textAlign: 'center' }}>
-        <div className="spinner"></div>
+    <div className="container" style={{ padding: '40px 0' }}>
+        <div className="skeleton-section">
+            <div className="skeleton-title"></div>
+            <div className="skeleton-grid">
+                <div className="skeleton-card"></div>
+                <div className="skeleton-card"></div>
+                <div className="skeleton-card"></div>
+            </div>
+        </div>
     </div>
 );
 

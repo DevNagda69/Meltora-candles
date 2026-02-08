@@ -7,8 +7,13 @@ import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
 
 // Lazy load pages for code splitting
-const Home = lazy(() => import('./pages/Home'));
-const Shop = lazy(() => import('./pages/Shop'));
+// Core pages (loaded immediately for speed)
+import Home from './pages/Home';
+import Shop from './pages/Shop';
+import AdminLogin from './pages/admin/AdminLogin';
+import AdminDashboard from './pages/admin/AdminDashboard';
+
+// Lazy load less frequent pages
 const ProductDetails = lazy(() => import('./pages/ProductDetails'));
 const Checkout = lazy(() => import('./pages/Checkout'));
 const About = lazy(() => import('./pages/About'));
@@ -17,10 +22,8 @@ const FAQ = lazy(() => import('./pages/FAQ'));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 const Terms = lazy(() => import('./pages/Terms'));
 
-// Admin Pages
-const AdminLogin = lazy(() => import('./pages/admin/AdminLogin'));
+// Admin Sub-Pages
 const AdminSetup = lazy(() => import('./pages/admin/AdminSetup'));
-const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'));
 const Products = lazy(() => import('./pages/admin/Products'));
 const ManageProduct = lazy(() => import('./pages/admin/ManageProduct'));
 const Orders = lazy(() => import('./pages/admin/Orders'));
@@ -127,7 +130,7 @@ function App() {
                                     element={
                                         <>
                                             <Header />
-                                            <main>
+                                            <main className="main-content-wrapper">
                                                 <Routes>
                                                     <Route path="/" element={<Home />} />
                                                     <Route path="/shop" element={<Shop />} />
