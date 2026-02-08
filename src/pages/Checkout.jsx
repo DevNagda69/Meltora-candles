@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { db } from '../services/firebase';
 import Button from '../components/common/Button';
 import toast from 'react-hot-toast';
 import './Checkout.css';
@@ -27,7 +29,7 @@ const Checkout = () => {
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
-    const handlePlaceOrder = (e) => {
+    const handlePlaceOrder = async (e) => {
         e.preventDefault();
         if (cartItems.length === 0) {
             toast.error('Your cart is empty');
@@ -35,14 +37,34 @@ const Checkout = () => {
         }
 
         setLoading(true);
-        // Simulate order placement
-        setTimeout(() => {
+        try {
+            const orderData = {
+                items: cartItems.map(item => ({
+                    id: item.id,
+                    name: item.name,
+                    price: item.selectedVariation?.price || item.price,
+                    quantity: item.quantity,
+                    size: item.selectedVariation?.size || ''
+                })),
+                shipping: formData,
+                subtotal,
+                shippingFee: shipping,
+                total,
+                status: 'Pending',
+                createdAt: serverTimestamp()
+            };
+
+            await addDoc(collection(db, 'orders'), orderData);
+
+            toast.success('Order placed successfully!');
+            // clearCart(); // Should be implemented in CartContext
+            navigate('/');
+        } catch (error) {
+            console.error('Error placing order:', error);
+            toast.error('Failed to place order. Please try again.');
+        } finally {
             setLoading(false);
-            toast.success('Order placed successfully! (Simulation)');
-            // Here we would integrate Razorpay or create generic order in Firebase
-            // clearCart();
-            // navigate('/order-confirmation');
-        }, 2000);
+        }
     };
 
     const subtotal = getCartTotal();

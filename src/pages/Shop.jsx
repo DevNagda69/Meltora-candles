@@ -4,11 +4,12 @@ import { FiFilter, FiSearch } from 'react-icons/fi';
 import ProductCard from '../components/shop/ProductCard';
 import FilterSidebar from '../components/shop/FilterSidebar';
 import SortDropdown from '../components/shop/SortDropdown';
-import { products as initialProducts } from '../data/products';
+import { getProducts } from '../services/productService';
 import './Shop.css';
 
 const Shop = () => {
-    const [products, setProducts] = useState(initialProducts);
+    const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [currentSort, setCurrentSort] = useState('popularity');
@@ -21,6 +22,21 @@ const Shop = () => {
     });
 
     const location = useLocation();
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const data = await getProducts();
+                setProducts(data.length > 0 ? data : initialProducts);
+            } catch (error) {
+                console.error('Error fetching products:', error);
+                setProducts(initialProducts);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchProducts();
+    }, []);
 
     // Handle query params for initial filter
     useEffect(() => {

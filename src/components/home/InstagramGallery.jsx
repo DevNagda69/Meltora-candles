@@ -37,9 +37,7 @@ const InstagramGallery = () => {
                     <h2 className="section-title">Follow Us On Instagram</h2>
                 </div>
 
-                {loading ? (
-                    <div className="text-center">Loading gallery...</div>
-                ) : galleryImages.length === 0 ? (
+                {loading ? null : galleryImages.length === 0 ? (
                     <div className="text-center">No images yet. Add some from the admin panel!</div>
                 ) : (
                     <div className="insta-grid">
