@@ -33,7 +33,7 @@ const Header = () => {
     ];
 
     return (
-        <header className={`header ${scrolled ? 'header-scrolled' : ''}`}>
+        <header className={`header ${scrolled ? 'header-scrolled' : ''} ${location.pathname === '/' ? 'header-home' : ''}`}>
             <div className="container">
                 <div className="header-content">
                     {/* Logo */}

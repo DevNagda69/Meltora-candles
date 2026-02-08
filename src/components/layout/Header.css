@@ -41,13 +41,13 @@
     font-family: var(--font-heading);
     font-size: var(--font-size-xl);
     font-weight: var(--font-weight-bold);
-    color: var(--color-white);
+    color: var(--color-dark-brown);
     letter-spacing: 0.5px;
     transition: color var(--transition-base);
 }
 
-.header-scrolled .logo-text {
-    color: var(--color-dark-brown);
+.header-home:not(.header-scrolled) .logo-text {
+    color: var(--color-white);
 }
 
 /* Desktop Navigation */
@@ -61,7 +61,7 @@
     font-family: var(--font-body);
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-medium);
-    color: var(--color-white);
+    color: var(--color-dark-brown);
     text-transform: uppercase;
     letter-spacing: 1px;
     position: relative;
@@ -69,8 +69,8 @@
     transition: color var(--transition-base);
 }
 
-.header-scrolled .nav-link {
-    color: var(--color-dark-brown);
+.header-home:not(.header-scrolled) .nav-link {
+    color: var(--color-white);
 }
 
 .nav-link::after {
@@ -103,13 +103,13 @@
     width: 40px;
     height: 40px;
     border-radius: var(--radius-full);
-    color: var(--color-white);
+    color: var(--color-dark-brown);
     font-size: var(--font-size-xl);
     transition: all var(--transition-base);
 }
 
-.header-scrolled .icon-button {
-    color: var(--color-dark-brown);
+.header-home:not(.header-scrolled) .icon-button {
+    color: var(--color-white);
 }
 
 .icon-button:hover {

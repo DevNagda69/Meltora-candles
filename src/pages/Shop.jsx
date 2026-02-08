@@ -5,6 +5,7 @@ import ProductCard from '../components/shop/ProductCard';
 import FilterSidebar from '../components/shop/FilterSidebar';
 import SortDropdown from '../components/shop/SortDropdown';
 import { getProducts } from '../services/productService';
+import { products as initialProducts } from '../data/products';
 import './Shop.css';
 
 const Shop = () => {
