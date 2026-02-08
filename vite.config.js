@@ -20,10 +20,14 @@ export default defineConfig({
         },
         rollupOptions: {
             output: {
-                manualChunks: {
-                    'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-                    'firebase-vendor': ['firebase/app', 'firebase/firestore', 'firebase/storage', 'firebase/auth'],
-                    'ui-vendor': ['react-hot-toast', 'react-icons']
+                manualChunks(id) {
+                    if (id.includes('node_modules')) {
+                        if (id.includes('firebase')) return 'vendor-firebase';
+                        if (id.includes('react')) return 'vendor-react-core';
+                        if (id.includes('react-router')) return 'vendor-react-router';
+                        if (id.includes('react-icons') || id.includes('react-hot-toast')) return 'vendor-ui';
+                        return 'vendor-misc';
+                    }
                 }
             }
         },

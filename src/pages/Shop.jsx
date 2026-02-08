@@ -21,6 +21,7 @@ const Shop = () => {
         size: [],
         availability: []
     });
+    const [visibleCount, setVisibleCount] = useState(6);
 
     const location = useLocation();
 
@@ -157,11 +158,23 @@ const Shop = () => {
                         </div>
 
                         {filteredProducts.length > 0 ? (
-                            <div className="products-grid grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-                                {filteredProducts.map(product => (
-                                    <ProductCard key={product.id} product={product} />
-                                ))}
-                            </div>
+                            <>
+                                <div className="products-grid grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+                                    {filteredProducts.slice(0, visibleCount).map(product => (
+                                        <ProductCard key={product.id} product={product} />
+                                    ))}
+                                </div>
+                                {visibleCount < filteredProducts.length && (
+                                    <div className="load-more flex justify-center mt-12">
+                                        <button
+                                            className="btn btn-secondary"
+                                            onClick={() => setVisibleCount(prev => prev + 6)}
+                                        >
+                                            Load More
+                                        </button>
+                                    </div>
+                                )}
+                            </>
                         ) : (
                             <div className="no-results text-center py-12">
                                 <h3>No products found</h3>

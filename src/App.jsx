@@ -4,25 +4,22 @@ import { Toaster } from 'react-hot-toast';
 
 // Layout Components (keep these loaded)
 import Header from './components/layout/Header';
+import { lazy, Suspense } from 'react';
+import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
+import GlobalSkeleton from './components/common/GlobalSkeleton';
 
-// Lazy load pages for code splitting
-// Core pages (loaded immediately for speed)
-import Home from './pages/Home';
-import Shop from './pages/Shop';
-import AdminLogin from './pages/admin/AdminLogin';
-import AdminDashboard from './pages/admin/AdminDashboard';
-
-// Lazy load less frequent pages
+// Route-based code splitting
+const Home = lazy(() => import('./pages/Home'));
+const Shop = lazy(() => import('./pages/Shop'));
 const ProductDetails = lazy(() => import('./pages/ProductDetails'));
 const Checkout = lazy(() => import('./pages/Checkout'));
 const About = lazy(() => import('./pages/About'));
 const Contact = lazy(() => import('./pages/Contact'));
-const FAQ = lazy(() => import('./pages/FAQ'));
-const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
-const Terms = lazy(() => import('./pages/Terms'));
 
-// Admin Sub-Pages
+// Admin Routes
+const AdminLogin = lazy(() => import('./pages/admin/AdminLogin'));
+const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'));
 const AdminSetup = lazy(() => import('./pages/admin/AdminSetup'));
 const Products = lazy(() => import('./pages/admin/Products'));
 const ManageProduct = lazy(() => import('./pages/admin/ManageProduct'));
@@ -131,17 +128,16 @@ function App() {
                                         <>
                                             <Header />
                                             <main className="main-content-wrapper">
-                                                <Routes>
-                                                    <Route path="/" element={<Home />} />
-                                                    <Route path="/shop" element={<Shop />} />
-                                                    <Route path="/product/:id" element={<ProductDetails />} />
-                                                    <Route path="/checkout" element={<Checkout />} />
-                                                    <Route path="/about" element={<About />} />
-                                                    <Route path="/contact" element={<Contact />} />
-                                                    <Route path="/faq" element={<FAQ />} />
-                                                    <Route path="/privacy" element={<PrivacyPolicy />} />
-                                                    <Route path="/terms" element={<Terms />} />
-                                                </Routes>
+                                                <Suspense fallback={<GlobalSkeleton />}>
+                                                    <Routes>
+                                                        <Route path="/" element={<Home />} />
+                                                        <Route path="/shop" element={<Shop />} />
+                                                        <Route path="/product/:id" element={<ProductDetails />} />
+                                                        <Route path="/checkout" element={<Checkout />} />
+                                                        <Route path="/about" element={<About />} />
+                                                        <Route path="/contact" element={<Contact />} />
+                                                    </Routes>
+                                                </Suspense>
                                             </main>
                                             <Footer />
                                             <WhatsAppButton />

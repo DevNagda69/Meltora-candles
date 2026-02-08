@@ -20,8 +20,7 @@
 .product-image-container {
     position: relative;
     width: 100%;
-    padding-bottom: 125%;
-    /* 4:5 Aspect Ratio */
+    aspect-ratio: 4 / 5;
     overflow: hidden;
     background-color: var(--color-light-gray);
 }
@@ -132,6 +131,7 @@
     margin-bottom: var(--spacing-2);
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }

@@ -59,8 +59,26 @@ const ProductForm = ({ initialData, onSubmit, loading }) => {
         }
     };
 
+    const [errors, setErrors] = useState({});
+
+    const validate = () => {
+        const newErrors = {};
+        if (!formData.name) newErrors.name = 'Name is required';
+        if (!formData.price || formData.price <= 0) newErrors.price = 'Valid price is required';
+        if (!formData.stock || formData.stock < 0) newErrors.stock = 'Stock cannot be negative';
+        if (!imagePreview && !id) newErrors.image = 'Image is required for new products';
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (!validate()) {
+            toast.error('Please fix the errors in the form');
+            return;
+        }
+
         // Convert numeric strings to numbers
         const processedData = {
             ...formData,

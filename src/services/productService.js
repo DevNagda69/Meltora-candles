@@ -18,15 +18,22 @@ import {
     getDownloadURL
 } from 'firebase/storage';
 import { db, storage } from './firebase';
+import { dataCache } from './dataCache';
 
 const COLLECTION_NAME = 'products';
 
 export const getProducts = async () => {
+    const cached = dataCache.get('products');
+    if (cached) return cached;
+
     const querySnapshot = await getDocs(collection(db, COLLECTION_NAME));
-    return querySnapshot.docs.map(doc => ({
+    const products = querySnapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data()
     }));
+
+    dataCache.set('products', products);
+    return products;
 };
 
 export const getProduct = async (productId) => {
@@ -80,11 +87,14 @@ export const addProduct = async (productData, imageFile) => {
         updatedAt: serverTimestamp()
     });
 
+    dataCache.invalidate('products');
     return { id: docRef.id, ...productData, image: imageUrl };
 };
 
 export const deleteProduct = async (productId) => {
     await deleteDoc(doc(db, COLLECTION_NAME, productId));
+    dataCache.invalidate('products');
+    dataCache.invalidate(`product_${productId}`);
 };
 
 export const updateProduct = async (productId, updates, imageFile) => {

@@ -2,6 +2,7 @@
 import { db, storage } from './firebase';
 import { collection, addDoc, getDocs, deleteDoc, doc, query, orderBy } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
+import { dataCache } from './dataCache';
 
 const GALLERY_COLLECTION = 'gallery';
 
@@ -24,6 +25,7 @@ export const uploadGalleryImage = async (file) => {
             createdAt: new Date().toISOString(),
         });
 
+        dataCache.invalidate('gallery');
         return { id: docRef.id, imageUrl, storagePath: filename };
     } catch (error) {
         console.error('Error uploading gallery image:', error);
@@ -34,13 +36,19 @@ export const uploadGalleryImage = async (file) => {
 // Get all gallery images
 export const getGalleryImages = async () => {
     try {
+        const cached = dataCache.get('gallery');
+        if (cached) return cached;
+
         const q = query(collection(db, GALLERY_COLLECTION), orderBy('createdAt', 'desc'));
         const querySnapshot = await getDocs(q);
 
-        return querySnapshot.docs.map(doc => ({
+        const images = querySnapshot.docs.map(doc => ({
             id: doc.id,
             ...doc.data()
         }));
+
+        dataCache.set('gallery', images);
+        return images;
     } catch (error) {
         console.error('Error fetching gallery images:', error);
         throw error;
