@@ -159,7 +159,7 @@ const Shop = () => {
 
                         {filteredProducts.length > 0 ? (
                             <>
-                                <div className="products-grid grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+                                <div className="products-grid grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
                                     {filteredProducts.slice(0, visibleCount).map(product => (
                                         <ProductCard key={product.id} product={product} />
                                     ))}

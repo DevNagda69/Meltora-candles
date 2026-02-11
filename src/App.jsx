@@ -4,8 +4,6 @@ import { Toaster } from 'react-hot-toast';
 
 // Layout Components (keep these loaded)
 import Header from './components/layout/Header';
-import { lazy, Suspense } from 'react';
-import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
 import GlobalSkeleton from './components/common/GlobalSkeleton';
 
