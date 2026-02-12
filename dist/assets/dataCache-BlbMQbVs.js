@@ -1,0 +1,1 @@
+const e=new Map,t={set:(t,a)=>{e.set(t,{data:a,timestamp:Date.now()})},get:t=>{const a=e.get(t);return a?Date.now()-a.timestamp>3e5?(e.delete(t),null):a.data:null},invalidate:t=>{e.delete(t)},clear:()=>{e.clear()}};export{t as d};

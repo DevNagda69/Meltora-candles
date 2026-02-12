@@ -1,0 +1,1 @@
+import{j as s}from"./vendor-react-core-Bq0KXPxd.js";import"./vendor-misc-DR8gDw69.js";const e=()=>s.jsx("div",{className:"page-contact section",children:s.jsxs("div",{className:"container",children:[s.jsx("h1",{children:"Contact Us"}),s.jsx("p",{children:"Have questions? Reach out to us via Instagram @meltora.candles or use the WhatsApp button below."})]})});export{e as default};
