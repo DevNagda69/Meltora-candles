@@ -39,7 +39,7 @@ const ProductCard = ({ product }) => {
                     className="product-image"
                     loading="lazy"
                     onError={(e) => {
-                        e.target.src = 'https://via.placeholder.com/300x400?text=Premium+Candle';
+                        e.target.src = 'https://images.unsplash.com/photo-1603006373366-07a82747385d?auto=format&fit=crop&q=80&w=800&h=1000';
                         e.target.onerror = null;
                     }}
                 />

@@ -37,6 +37,10 @@ const ImageGallery = ({ images = [] }) => {
                     alt="Product Detail"
                     className="main-image"
                     style={zoomStyle}
+                    onError={(e) => {
+                        e.target.src = 'https://images.unsplash.com/photo-1603006373366-07a82747385d?auto=format&fit=crop&q=80&w=800&h=1000&text=Premium+Candle';
+                        e.target.onerror = null;
+                    }}
                 />
                 <div className="zoom-hint hidden-mobile">Roll over image to zoom in</div>
             </div>
@@ -49,7 +53,14 @@ const ImageGallery = ({ images = [] }) => {
                             className={`thumbnail-btn ${mainImage === img ? 'active' : ''}`}
                             onClick={() => setMainImage(img)}
                         >
-                            <img src={img} alt={`View ${index + 1}`} />
+                            <img
+                                src={img}
+                                alt={`View ${index + 1}`}
+                                onError={(e) => {
+                                    e.target.src = 'https://images.unsplash.com/photo-1603006373366-07a82747385d?auto=format&fit=crop&q=80&w=150&h=150';
+                                    e.target.onerror = null;
+                                }}
+                            />
                         </button>
                     ))}
                 </div>
