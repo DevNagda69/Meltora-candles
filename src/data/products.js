@@ -36,18 +36,47 @@ export const products = [
     },
     {
         id: 3,
-        name: 'Petal & Paws Gift Collection',
-        price: 2499,
+        name: 'Rose Teddy Candle',
+        price: 899,
+        category: 'Decorative',
+        collection: 'Signature',
+        scent: 'Sweet Floral',
+        size: 'Medium',
+        image: '/images/products/rose_teddy_candle.webp',
+        description: "A handcrafted rose teddy candle that blends romance and artistry into one adorable statement piece. Perfect for gifting or decorating cozy spaces with warmth and love.",
+        scentProfile: "Sweet Floral (Subtle & Pleasant)",
+        fragranceNotes: {
+            top: "Fresh Rose Petals",
+            heart: "Soft Floral Bouquet",
+            base: "Light Vanilla Warmth"
+        },
+        ingredients: "100% Premium Soy Wax, Cotton Wick, Skin-Safe Fragrance Oils, Non-Toxic Color Pigments",
+        burnTime: "20–25 Hours (Approx.)",
+        rating: 5.0,
+        reviews: 186,
+        stock: 12
+    },
+    {
+        id: 4,
+        name: 'Festive Luxe Candle Gift Box',
+        price: 1999,
         category: 'Gift Set',
-        collection: 'Luxury Box',
-        scent: 'Pink Peony',
-        size: 'Large Box',
-        image: '/images/products/box_collection.webp',
-        description: "The ultimate luxury gift set. Featuring a charming pink bear-shaped candle nestled among delicate hand-poured rose candles. Presented in a premium gift box, this collection brings a touch of elegance and whimsy to any setting.",
-        ingredients: "Natural Soy Wax, Essential Oils (Peony, White Musk), Cotton Wicks",
-        burnTime: "50+ hours (Total)",
-        rating: 4.8,
-        reviews: 76,
-        stock: 8
+        collection: 'Limited Edition Collection',
+        scent: 'Warm & Cozy',
+        size: 'Premium Box',
+        image: '/images/products/festive_luxe_box.webp',
+        description: "A premium handcrafted candle gift box featuring artistic festive shapes and luxury glass jar candles — the perfect blend of warmth, elegance, and celebration.",
+        scentProfile: "Warm & Cozy | Woody | Sweet Notes",
+        fragranceNotes: {
+            top: "Warm Vanilla & Soft Citrus",
+            heart: "Cedarwood & Spice",
+            base: "Amber & Musk"
+        },
+        ingredients: "Premium Soy Wax Blend, Cotton Wicks, High-Quality Fragrance Oils, Reusable Glass Containers",
+        burnTime: "60–80 Hours (Combined Approx.)",
+        rating: 5.0,
+        reviews: 124,
+        stock: 5,
+        isLimitedEdition: true
     }
 ];
