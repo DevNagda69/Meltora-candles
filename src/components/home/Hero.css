@@ -13,6 +13,31 @@
     /* Offset header height if transparent */
 }
 
+.hero::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 65% 30%, rgba(255, 180, 120, 0.25), transparent 40%);
+    animation: flicker 3s infinite ease-in-out;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes flicker {
+
+    0%,
+    100% {
+        opacity: 0.6;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
 .hero-background {
     position: absolute;
     top: 0;
@@ -23,6 +48,17 @@
     background-size: cover;
     background-position: center;
     z-index: 0;
+    animation: slowZoom 20s ease-in-out infinite alternate;
+}
+
+@keyframes slowZoom {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.08);
+    }
 }
 
 .hero-background::before {
@@ -32,8 +68,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(rgba(0, 0, 0, 0.3),
-            rgba(61, 40, 23, 0.5));
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4));
     z-index: 1;
 }
 
@@ -41,7 +76,9 @@
     position: relative;
     z-index: 2;
     max-width: 800px;
-    padding-top: var(--spacing-16);
+    padding: var(--spacing-16);
+    backdrop-filter: blur(4px);
+    border-radius: var(--radius-lg);
 }
 
 .hero-subtitle {
@@ -56,10 +93,11 @@
 }
 
 .hero-title {
-    font-size: var(--font-size-5xl);
+    font-size: 64px;
+    letter-spacing: -1px;
+    line-height: 1.1;
     color: var(--color-white);
     margin-bottom: var(--spacing-6);
-    line-height: 1.1;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
