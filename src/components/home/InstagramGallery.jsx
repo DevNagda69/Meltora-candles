@@ -13,8 +13,33 @@ const InstagramGallery = () => {
 
     const loadGalleryImages = async () => {
         try {
-            const images = await getGalleryImages();
-            setGalleryImages(images);
+            const firebaseImages = await getGalleryImages();
+
+            // Add local fallback images for demo/localhost
+            const localImages = [
+                {
+                    id: 'local-heart-candle',
+                    imageUrl: '/images/instagram/heart-candle.jpg',
+                    createdAt: new Date(Date.now() - 1000).toISOString()
+                },
+                {
+                    id: 'local-gift-box',
+                    imageUrl: '/images/instagram/gift-box.jpg',
+                    createdAt: new Date(Date.now() - 2000).toISOString()
+                },
+                {
+                    id: 'local-rose-bouquet',
+                    imageUrl: '/images/instagram/rose-bouquet.jpg',
+                    createdAt: new Date(Date.now() - 3000).toISOString()
+                }
+            ];
+
+            // Combine and sort by createdAt
+            const combinedImages = [...localImages, ...firebaseImages].sort((a, b) =>
+                new Date(b.createdAt) - new Date(a.createdAt)
+            );
+
+            setGalleryImages(combinedImages);
         } catch (error) {
             console.error('Error loading gallery images:', error);
         } finally {
