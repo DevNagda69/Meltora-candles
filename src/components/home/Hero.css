@@ -9,8 +9,6 @@
     justify-content: center;
     color: var(--color-white);
     overflow: hidden;
-    margin-top: -76px;
-    /* Offset header height if transparent */
 }
 
 .hero::after {

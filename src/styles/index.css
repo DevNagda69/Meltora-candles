@@ -19,9 +19,9 @@
     padding-top: 80px;
 }
 
-/* On home page, hero section handles its own spacing/overlap */
-.page-home .main-content-wrapper {
-    padding-top: 0;
+/* On home page, pull content up to overlap transparent header */
+.page-home {
+    margin-top: -80px;
 }
 
 html {
@@ -48,10 +48,9 @@ h4,
 h5,
 h6 {
     font-family: var(--font-heading);
-    font-weight: var(--font-weight-semibold);
-    line-height: var(--line-height-tight);
     color: var(--color-dark-brown);
     margin-bottom: var(--spacing-4);
+    line-height: 1.2;
 }
 
 h1 {
@@ -268,21 +267,17 @@ ol {
 }
 
 /* Scrollbar Styling */
+/* Hide scrollbar for Chrome, Safari and Opera */
 ::-webkit-scrollbar {
-    width: 10px;
+    display: none;
 }
 
-::-webkit-scrollbar-track {
-    background: var(--color-light-gray);
-}
-
-::-webkit-scrollbar-thumb {
-    background: var(--color-warm-orange);
-    border-radius: var(--radius-full);
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: var(--color-soft-peach);
+/* Hide scrollbar for IE, Edge and Firefox */
+body {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
 }
 
 /* Selection */
