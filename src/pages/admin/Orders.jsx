@@ -15,24 +15,38 @@ const Orders = () => {
 
     const fetchOrders = async () => {
         try {
+            console.log('Fetching orders from Firebase...');
             const q = query(collection(db, 'orders'), orderBy('createdAt', 'desc'));
             const snapshot = await getDocs(q);
-            const ordersData = snapshot.docs.map(doc => ({
-                id: doc.id,
-                ...doc.data()
-            }));
+            console.log(`Found ${snapshot.size} orders`);
+
+            const ordersData = snapshot.docs.map(doc => {
+                const data = doc.data();
+                return {
+                    id: doc.id,
+                    ...data
+                };
+            });
+            console.log('Orders data processed:', ordersData);
             setOrders(ordersData);
         } catch (error) {
             console.error('Error fetching orders:', error);
-            toast.error('Failed to load orders');
+            toast.error('Failed to load orders: ' + error.message);
         } finally {
             setLoading(false);
         }
     };
 
     const formatDate = (timestamp) => {
-        if (!timestamp) return '';
-        return new Date(timestamp.seconds * 1000).toLocaleDateString();
+        if (!timestamp) return 'No Date';
+        try {
+            // Handle both Firestore Timestamp and JS Date
+            const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp.seconds * 1000);
+            return date.toLocaleDateString();
+        } catch (e) {
+            console.error('Error formatting date:', e, timestamp);
+            return 'Invalid Date';
+        }
     };
 
     return (
@@ -72,7 +86,7 @@ const Orders = () => {
                                             <td className="font-bold">₹{order.total}</td>
                                             <td>
                                                 <span className={`status-badge ${order.status === 'Delivered' ? 'success' :
-                                                        order.status === 'Cancelled' ? 'error' : 'warning'
+                                                    order.status === 'Cancelled' ? 'error' : 'warning'
                                                     }`}>
                                                     {order.status || 'Pending'}
                                                 </span>

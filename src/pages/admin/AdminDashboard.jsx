@@ -22,6 +22,7 @@ const AdminDashboard = () => {
 
     const fetchDashboardData = async () => {
         try {
+            console.log('Fetching dashboard data...');
             const [
                 productsSnapshot,
                 ordersSnapshot,
@@ -34,17 +35,21 @@ const AdminDashboard = () => {
                 getDocs(query(collection(db, 'orders'), orderBy('createdAt', 'desc'), limit(5)))
             ]);
 
+            console.log(`Dashboard Stats: ${productsSnapshot.size} products, ${ordersSnapshot.size} orders, ${gallerySnapshot.size} gallery items`);
+
             // Calculate total revenue
             let totalRevenue = 0;
             ordersSnapshot.docs.forEach(doc => {
                 const order = doc.data();
-                totalRevenue += order.total || 0;
+                totalRevenue += Number(order.total) || 0;
             });
 
             const recentOrdersData = recentOrdersSnapshot.docs.map(doc => ({
                 id: doc.id,
                 ...doc.data()
             }));
+
+            console.log('Recent orders:', recentOrdersData);
 
             setStats({
                 totalProducts: productsSnapshot.size,
@@ -61,8 +66,14 @@ const AdminDashboard = () => {
     };
 
     const formatDate = (timestamp) => {
-        if (!timestamp) return '';
-        return new Date(timestamp.seconds * 1000).toLocaleDateString();
+        if (!timestamp) return 'No Date';
+        try {
+            const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp.seconds * 1000);
+            return date.toLocaleDateString();
+        } catch (e) {
+            console.error('Error formatting date in dashboard:', e, timestamp);
+            return 'Invalid Date';
+        }
     };
 
     const statCards = [

@@ -8,7 +8,7 @@ import toast from 'react-hot-toast';
 import './Checkout.css';
 
 const Checkout = () => {
-    const { cartItems, getCartTotal } = useCart();
+    const { cartItems, getCartTotal, clearCart } = useCart();
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
 
@@ -38,6 +38,7 @@ const Checkout = () => {
 
         setLoading(true);
         try {
+            console.log('Placing order with data:', { cartItems, formData, subtotal, shipping, total });
             const orderData = {
                 items: cartItems.map(item => ({
                     id: item.id,
@@ -54,14 +55,15 @@ const Checkout = () => {
                 createdAt: serverTimestamp()
             };
 
-            await addDoc(collection(db, 'orders'), orderData);
+            const docRef = await addDoc(collection(db, 'orders'), orderData);
+            console.log('Order saved with ID:', docRef.id);
 
             toast.success('Order placed successfully!');
-            // clearCart(); // Should be implemented in CartContext
+            clearCart();
             navigate('/');
         } catch (error) {
-            console.error('Error placing order:', error);
-            toast.error('Failed to place order. Please try again.');
+            console.error('Detailed error placing order:', error);
+            toast.error(`Failed to place order: ${error.message}`);
         } finally {
             setLoading(false);
         }
